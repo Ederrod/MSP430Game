@@ -3,18 +3,18 @@
 #include "lcddraw.h"
 #include "shape.h"
 
-AbRect rect5 = {abRectGetBounds, abRectCheck, {5,5}}; 
+AbRect rect5 = {abRectGetBounds, abRectCheck, 8, 8}; 
 
 
 Layer layer0 = {
     (AbShape*)&rect5,
-    {screenWidth/2,screenHeight/2},
-    {0,0},
-    {0,0},
-    COLOR_GOLD,
-    0
+    {screenWidth/2,screenHeight-8},
+    {0,0},{0,0},
+    COLOR_RED,
+    0,
 }; 
 
+u_int bgColor = COLOR_BLUE;
 
 int 
 main()
