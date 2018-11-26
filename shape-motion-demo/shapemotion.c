@@ -103,17 +103,17 @@ void movLayerDraw(MovLayer *movLayers, Layer *layers)
 		bounds.botRight.axes[0], bounds.botRight.axes[1]);
     for (row = bounds.topLeft.axes[1]; row <= bounds.botRight.axes[1]; row++) {
       for (col = bounds.topLeft.axes[0]; col <= bounds.botRight.axes[0]; col++) {
-	Vec2 pixelPos = {col, row};
-	u_int color = bgColor;
-	Layer *probeLayer;
-	for (probeLayer = layers; probeLayer; 
-	     probeLayer = probeLayer->next) { /* probe all layers, in order */
-	  if (abShapeCheck(probeLayer->abShape, &probeLayer->pos, &pixelPos)) {
-	    color = probeLayer->color;
-	    break; 
-	  } /* if probe check */
-	} // for checking all layers at col, row
-	lcd_writeColor(color); 
+        Vec2 pixelPos = {col, row};
+        u_int color = bgColor;
+        Layer *probeLayer;
+        for (probeLayer = layers; probeLayer; 
+            probeLayer = probeLayer->next) { /* probe all layers, in order */
+          if (abShapeCheck(probeLayer->abShape, &probeLayer->pos, &pixelPos)) {
+            color = probeLayer->color;
+            break; 
+          } /* if probe check */
+        } // for checking all layers at col, row
+        lcd_writeColor(color); 
       } // for col
     } // for row
   } // for moving layer being updated
@@ -138,9 +138,9 @@ void mlAdvance(MovLayer *ml, Region *fence)
     abShapeGetBounds(ml->layer->abShape, &newPos, &shapeBoundary);
     for (axis = 0; axis < 2; axis ++) {
       if ((shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis]) ||
-	  (shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis]) ) {
-	int velocity = ml->velocity.axes[axis] = -ml->velocity.axes[axis];
-	newPos.axes[axis] += (2*velocity);
+        (shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis]) ) {
+          int velocity = ml->velocity.axes[axis] = -ml->velocity.axes[axis];
+          newPos.axes[axis] += (2*velocity);
       }	/**< if outside of fence */
     } /**< for axis */
     ml->layer->posNext = newPos;
