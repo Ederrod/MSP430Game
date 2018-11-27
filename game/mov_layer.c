@@ -54,12 +54,12 @@ void mlAdvance(MovLayer *ml, Region *fence)
   for (; ml; ml = ml->next) {
     vec2Sub(&newPos, &ml->layer->posLast, &ml->velocity);
     abShapeGetBounds(ml->layer->abShape, &newPos, &shapeBoundary);
-    for (axis = 0; axis < 2; axis++) {
-      if ((shapeBoundary.topLeft.axes[axis] > fence->topLeft.axes[axis]) ||
-        (shapeBoundary.botRight.axes[axis] < fence->botRight.axes[axis]) ) {
-	      int velocity = ml->velocity.axes[axis] = 0;
-        newPos.axes[axis] -= (2*velocity);
-      }
+    //for (axis = 0; axis < 2; axis++) {
+      if ((shapeBoundary.topLeft.axes[0] < fence->topLeft.axes[0]) ||
+        (shapeBoundary.botRight.axes[0] > fence->botRight.axes[0]) ) {
+	int velocity = -ml->velocity.axes[0];
+        newPos.axes[0] -= (2*velocity);
+	//}
       /*elseif((shapeBoundary.topLeft.axes[axis] > 0)||(shapeBoundary.botRight.axes[axis]< 0)){
 	int vel = ml->velocity.axes[axis] = 0;
 	newPos.axes[axis] -= (2*vel);

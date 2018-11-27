@@ -44,7 +44,7 @@ Layer layer0 = {		/**< Layer with a red square */
 };
 
 /* initial value of {0,0} will be overwritten */
-MovLayer ml0 = { &layer0, {2,2}, 0 }; 
+MovLayer ml0 = { &layer0, {2,0}, 0 }; 
 
 u_int bgColor = COLOR_BLUE;     /**< The background color */
 int redrawScreen = 1;           /**< Boolean for whether screen needs to be redrawn */
