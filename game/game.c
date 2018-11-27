@@ -35,7 +35,7 @@ Layer fieldLayer = {		/* playing field as a layer */
 
 Layer layer0 = {		/**< Layer with a red square */
   (AbShape *)&rect10,
-  {screenWidth/2, screenHeight+8}, /**< center */
+  {screenWidth/2, screenHeight-SIZE}, /**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_RED,
   &fieldLayer,
@@ -111,7 +111,7 @@ void mlAdvance(MovLayer *ml, Region *fence)
     for (axis = 0; axis < 2; axis ++) {
       if ((shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis]) ||
         (shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis]) ) {
-          int velocity = ml->velocity.axes[axis] = -ml->velocity.axes[axis];
+	int velocity = ml->velocity.axes[axis] = -ml->velocity.axes[axis];
           newPos.axes[axis] += (2*velocity);
       }	/**< if outside of fence */
     } /**< for axis */
