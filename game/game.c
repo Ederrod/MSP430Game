@@ -14,6 +14,8 @@
 #include <shape.h>
 #include <abCircle.h>
 
+#include "mov_layer.h"
+
 #define GREEN_LED BIT6
 
 #define SIZE 8
