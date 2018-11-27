@@ -19,30 +19,11 @@
 #define SIZE 8
 
 AbRect rect10 = {abRectGetBounds, abRectCheck, {SIZE,SIZE}}; /**< 10x10 rectangle */
-AbRArrow rightArrow = {abRArrowGetBounds, abRArrowCheck, 30};
 
 AbRectOutline fieldOutline = {	/* playing field */
   abRectOutlineGetBounds, abRectOutlineCheck,   
   {screenWidth/2, screenHeight/2}
 };
-
-Layer layer4 = {
-  (AbShape *)&rightArrow,
-  {(screenWidth/2)+10, (screenHeight/2)+5}, /**< bit below & right of center */
-  {0,0}, {0,0},				    /* last & next pos */
-  COLOR_PINK,
-  0
-};
-  
-
-Layer layer3 = {		/**< Layer with an orange circle */
-  (AbShape *)&circle8,
-  {(screenWidth/2)+10, (screenHeight/2)+5}, /**< bit below & right of center */
-  {0,0}, {0,0},				    /* last & next pos */
-  COLOR_VIOLET,
-  &layer4,
-};
-
 
 Layer fieldLayer = {		/* playing field as a layer */
   (AbShape *) &fieldOutline,
@@ -54,7 +35,7 @@ Layer fieldLayer = {		/* playing field as a layer */
 
 Layer layer0 = {		/**< Layer with a red square */
   (AbShape *)&rect10,
-  {screenWidth/2, screenHeight+SIZE}, /**< center */
+  {screenWidth/2, screenHeight+8}, /**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_RED,
   &fieldLayer,
@@ -71,7 +52,6 @@ typedef struct MovLayer_s {
 } MovLayer;
 
 /* initial value of {0,0} will be overwritten */
-MovLayer ml3 = { &layer3, {1,1}, 0 }; /**< not all layers move */
 MovLayer ml0 = { &layer0, {1,2}, &ml3 }; 
 
 void movLayerDraw(MovLayer *movLayers, Layer *layers)
