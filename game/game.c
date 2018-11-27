@@ -20,7 +20,7 @@
 
 #define SIZE 8
 
-AbRect rect10 = {abRectGetBounds, abRectCheck, {SIZE,SIZE}}; /**< 10x10 rectangle */
+AbRect rect10 = {abRectGetBounds, abRectCheck, {SIZE,SIZE/2}}; /**< 10x10 rectangle */
 
 AbRectOutline fieldOutline = {	/* playing field */
   abRectOutlineGetBounds, abRectOutlineCheck,   
@@ -95,8 +95,14 @@ void wdt_c_handler()
   static short count = 0;
   P1OUT |= GREEN_LED;		      /**< Green LED on when cpu on */
   count ++;
-  if (count == 15) {
+  u_int switches = p2sw_read(); 
+  if((switches & (1<<0)) == 0){
     mlAdvance(&ml0, &fieldFence);
+    redrawScreen = 1;  
+  }
+  
+  if (count == 15) {
+    //mlAdvance(&ml0, &fieldFence);
     if (p2sw_read())
       redrawScreen = 1;
     count = 0;
