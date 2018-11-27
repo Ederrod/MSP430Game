@@ -37,14 +37,14 @@ Layer fieldLayer = {		/* playing field as a layer */
 
 Layer layer0 = {		/**< Layer with a red square */
   (AbShape *)&rect10,
-  {screenWidth/2, screenHeight-SIZE}, /**< center */
+  {screenWidth/2, screenHeight-SIZE/2}, /**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_RED,
   &fieldLayer,
 };
 
 /* initial value of {0,0} will be overwritten */
-MovLayer ml0 = { &layer0, {2,0}, 0 }; 
+MovLayer ml0 = { &layer0, {1,0}, 0 }; 
 
 u_int bgColor = COLOR_BLUE;     /**< The background color */
 int redrawScreen = 1;           /**< Boolean for whether screen needs to be redrawn */
