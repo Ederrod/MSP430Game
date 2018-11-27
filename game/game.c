@@ -52,7 +52,7 @@ typedef struct MovLayer_s {
 } MovLayer;
 
 /* initial value of {0,0} will be overwritten */
-MovLayer ml0 = { &layer0, {1,2}, 0 }; 
+MovLayer ml0 = { &layer0, {2,2}, 0 }; 
 
 void movLayerDraw(MovLayer *movLayers, Layer *layers)
 {
@@ -106,14 +106,18 @@ void mlAdvance(MovLayer *ml, Region *fence)
   u_char axis;
   Region shapeBoundary;
   for (; ml; ml = ml->next) {
-    vec2Add(&newPos, &ml->layer->posNext, &ml->velocity);
+    vec2Sub(&newPos, &ml->layer->posNext, &ml->velocity);
     abShapeGetBounds(ml->layer->abShape, &newPos, &shapeBoundary);
-    for (axis = 0; axis < 2; axis ++) {
-      if ((shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis]) ||
-        (shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis]) ) {
-	int velocity = ml->velocity.axes[axis] = -ml->velocity.axes[axis];
-          newPos.axes[axis] += (2*velocity);
-      }	/**< if outside of fence */
+    for (axis = 0; axis < 2; axis++) {
+      if ((shapeBoundary.topLeft.axes[axis] > fence->topLeft.axes[axis]) ||
+        (shapeBoundary.botRight.axes[axis] < fence->botRight.axes[axis]) ) {
+	int velocity = ml->velocity.axes[axis] = 0;
+        newPos.axes[axis] -= (2*velocity);
+      }
+      /*elseif((shapeBoundary.topLeft.axes[axis] > 0)||(shapeBoundary.botRight.axes[axis]< 0)){
+	int vel = ml->velocity.axes[axis] = 0;
+	newPos.axes[axis] -= (2*vel);
+      }/**< if outside of fence */
     } /**< for axis */
     ml->layer->posNext = newPos;
   } /**< for ml */
