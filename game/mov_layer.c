@@ -52,7 +52,7 @@ void mlAdvance(MovLayer *ml, Region *fence)
   u_char axis;
   Region shapeBoundary;
   for (; ml; ml = ml->next) {
-    vec2Sub(&newPos, &ml->layer->posNext, &ml->velocity);
+    vec2Sub(&newPos, &ml->layer->posLast, &ml->velocity);
     abShapeGetBounds(ml->layer->abShape, &newPos, &shapeBoundary);
     for (axis = 0; axis < 2; axis++) {
       if ((shapeBoundary.topLeft.axes[axis] > fence->topLeft.axes[axis]) ||
