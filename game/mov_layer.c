@@ -63,8 +63,8 @@ void mlAdvance(MovLayer *ml, Region *fence)
     // } 
 
     // Move right
-    if ((shapeBoundary.topLeft.axes[0] > fence->topLeft.axes[0]) ||
-    (shapeBoundary.botRight.axes[0] < fence->botRight.axes[0])){
+    if ((shapeBoundary.topLeft.axes[0] < fence->topLeft.axes[0]) ||
+    (shapeBoundary.botRight.axes[0] > fence->botRight.axes[0])){
       int velocity = ml->velocity.axes[0] = 0; 
       newPos.axes[0] += (2*velocity); 
     }
