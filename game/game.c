@@ -30,7 +30,7 @@ Layer fieldLayer = {		/* playing field as a layer */
   {screenWidth/2, screenHeight/2},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
-  &layer3
+  0
 };
 
 Layer layer0 = {		/**< Layer with a red square */
@@ -52,7 +52,7 @@ typedef struct MovLayer_s {
 } MovLayer;
 
 /* initial value of {0,0} will be overwritten */
-MovLayer ml0 = { &layer0, {1,2}, &ml3 }; 
+MovLayer ml0 = { &layer0, {1,2}, 0 }; 
 
 void movLayerDraw(MovLayer *movLayers, Layer *layers)
 {
