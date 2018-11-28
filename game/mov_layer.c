@@ -39,35 +39,37 @@ void movLayerDraw(MovLayer *movLayers, Layer *layers)
   } // for moving layer being updated
 }	
 
-//Region fence = {{10,30}, {SHORT_EDGE_PIXELS-10, LONG_EDGE_PIXELS-10}}; /**< Create a fence region */
+void mlPlayerAdvanceLeft(MovLayer *ml, Region *fence)
+{
+  Vec2 newPos;
+  u_char axis;
+  Region shapeBoundary;
+  for (; ml; ml = ml->next) {
+    vec2Sub(&newPos, &ml->layer->posLast, &ml->velocity);
+    abShapeGetBounds(ml->layer->abShape, &newPos, &shapeBoundary);
+    //Move left
+    if ((shapeBoundary.topLeft.axes[0] < fence->topLeft.axes[0]) ||
+      (shapeBoundary.botRight.axes[0] > fence->botRight.axes[0]) ) {
+      int velocity = -ml->velocity.axes[0];
+      newPos.axes[0] -= (2*velocity);
+    } 
+    ml->layer->posNext = newPos;
+  } 
+}
 
-/** Advances a moving shape within a fence
- *  
- *  \param ml The moving shape to be advanced
- *  \param fence The region which will serve as a boundary for ml
- */
-void mlAdvance(MovLayer *ml, Region *fence)
+void mlPlayerAdvanceRight(MovLayer *ml, Region *fence)
 {
   Vec2 newPos;
   u_char axis;
   Region shapeBoundary;
   for (; ml; ml = ml->next) {
     vec2Add(&newPos, &ml->layer->posNext, &ml->velocity); 
-    //vec2Sub(&newPos, &ml->layer->posLast, &ml->velocity);
     abShapeGetBounds(ml->layer->abShape, &newPos, &shapeBoundary);
-    // Move left
-    // if ((shapeBoundary.topLeft.axes[0] < fence->topLeft.axes[0]) ||
-    //   (shapeBoundary.botRight.axes[0] > fence->botRight.axes[0]) ) {
-    //   int velocity = -ml->velocity.axes[0];
-    //   newPos.axes[0] -= (2*velocity);
-    // } 
-
-    // Move right
     if ((shapeBoundary.topLeft.axes[0] < fence->topLeft.axes[0]) ||
     (shapeBoundary.botRight.axes[0] > fence->botRight.axes[0])){
       int velocity = ml->velocity.axes[0] = 0; 
       newPos.axes[0] += (2*velocity); 
     }
     ml->layer->posNext = newPos;
-  } /**< for ml */
+  } 
 }

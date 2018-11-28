@@ -70,13 +70,10 @@ void main()
   layerInit(&layer0);
   layerDraw(&layer0);
 
-
   layerGetBounds(&fieldLayer, &fieldFence);
-
 
   enableWDTInterrupts();      /**< enable periodic interrupt */
   or_sr(0x8);	              /**< GIE (enable interrupts) */
-
 
   for(;;) { 
     while (!redrawScreen) { /**< Pause CPU if screen doesn't need updating */
@@ -97,12 +94,14 @@ void wdt_c_handler()
   count ++;
   u_int switches = p2sw_read(); 
   if((switches & (1<<0)) == 0){
-    mlAdvance(&ml0, &fieldFence);
+    mlPlayerAdvanceLeft(&ml0, &fieldFence);
     redrawScreen = 1;  
   }
-  
+  if((switches & (1<<3)) == 0){
+    mlPlayerAdvanceRight(&ml0, &fieldFence);
+    redrawScreen = 1;  
+  }
   if (count == 15) {
-    //mlAdvance(&ml0, &fieldFence);
     if (p2sw_read())
       redrawScreen = 1;
     count = 0;
