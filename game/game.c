@@ -93,11 +93,11 @@ void wdt_c_handler()
   P1OUT |= GREEN_LED;		      /**< Green LED on when cpu on */
   count ++;
   u_int switches = p2sw_read(); 
-  if((switches & (1<<0)) == 0){
-    mlPlayerAdvanceLeft(&ml0, &fieldFence);
-    redrawScreen = 1;  
-  }
-  if((switches & (1<<3)) == 0){
+  //if((switches & (1<<0)) == 0){
+    //mlPlayerAdvanceLeft(&ml0, &fieldFence);
+    //redrawScreen = 1;  
+    //}
+  if((switches & (1<<3)) != 0){
     mlPlayerAdvanceRight(&ml0, &fieldFence);
     redrawScreen = 1;  
   }
