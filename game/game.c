@@ -20,7 +20,7 @@
 
 #define SIZE 8
 
-AbRect rect10 = {abRectGetBounds, abRectCheck, {SIZE,SIZE/2}}; /**< 10x10 rectangle */
+AbRect rect10 = {abRectGetBounds, abRectCheck, {SIZE, SIZE/2}};
 
 AbRectOutline fieldOutline = {	/* playing field */
   abRectOutlineGetBounds, abRectOutlineCheck,   
@@ -63,7 +63,7 @@ void main()
   configureClocks();
   lcd_init();
   shapeInit();
-  p2sw_init(1);
+  p2sw_init(15);
 
   shapeInit();
 
@@ -76,15 +76,6 @@ void main()
   or_sr(0x8);	              /**< GIE (enable interrupts) */
 
   for(;;) { 
-    u_int switches = p2sw_read(); 
-    if((switches & (1<<0)) == 0){
-      mlPlayerAdvanceLeft(&ml0, &fieldFence);
-      redrawScreen = 1;  
-    }
-    if((switches & (1<<3)) == 0){
-      mlPlayerAdvanceRight(&ml0, &fieldFence);
-      redrawScreen = 1;  
-    }
     while (!redrawScreen) { /**< Pause CPU if screen doesn't need updating */
       P1OUT &= ~GREEN_LED;    /**< Green led off witHo CPU */
       or_sr(0x10);	      /**< CPU OFF */
@@ -101,6 +92,18 @@ void wdt_c_handler()
   static short count = 0;
   P1OUT |= GREEN_LED;		      /**< Green LED on when cpu on */
   count ++;
+
+  u_int switches = p2sw_read();
+
+  if((switches & (1<<0)) == 0){
+    mlPlayerAdvanceLeft(&ml0, &fieldFence);
+    redrawScreen = 1;  
+  }
+  if((switches & (1<<3)) == 0){
+    mlPlayerAdvanceRight(&ml0, &fieldFence);
+    redrawScreen = 1;  
+  }
+
   if (count == 15) {
     if (p2sw_read())
       redrawScreen = 1;
