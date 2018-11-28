@@ -43,8 +43,17 @@ Layer layer0 = {		/**< Layer with a red square */
   &fieldLayer,
 };
 
+Layer layer1 = {
+  (AbShape *)&circle8,
+  {SIZE, SIZE}, /**< bit below & right of center */
+  {0,0}, {0,0},				    /* last & next pos */
+  COLOR_ORANGE,
+  0
+}
+
 /* initial value of {0,0} will be overwritten */
 MovLayer ml0 = { &layer0, {1,0}, 0 }; 
+MovLayer ml1 = { &layer1, {2,2}, 0 }; 
 
 u_int bgColor = COLOR_BLUE;     /**< The background color */
 int redrawScreen = 1;           /**< Boolean for whether screen needs to be redrawn */
@@ -70,6 +79,9 @@ void main()
   layerInit(&layer0);
   layerDraw(&layer0);
 
+  layerInit(&layer1);
+  layerDraw(&layer1);
+
   layerGetBounds(&fieldLayer, &fieldFence);
 
   enableWDTInterrupts();      /**< enable periodic interrupt */
@@ -83,6 +95,7 @@ void main()
     P1OUT |= GREEN_LED;       /**< Green led on when CPU on */
     redrawScreen = 0;
     movLayerDraw(&ml0, &layer0);
+    movLayerDraw(&ml1, &layer1); 
   }
 }
 
@@ -107,7 +120,14 @@ void wdt_c_handler()
   if (count == 15) {
     if (p2sw_read())
       redrawScreen = 1;
-    count = 0;
+    //count = 0;
   } 
+
+  if (count == 30){
+    mlAsteroidsAdvance(&ml1, &fieldFence); 
+    if (p2sw_read())
+      redrawScreen = 1;
+  }
+
   P1OUT &= ~GREEN_LED;		    /**< Green LED off when cpu off */
 }
