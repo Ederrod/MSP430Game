@@ -13,3 +13,4 @@ typedef struct MovLayer_s {
 void movLayerDraw(MovLayer *movLayers, Layer *layers);
 void mlPlayerAdvanceLeft(MovLayer *ml, Region *fence);
 void mlPlayerAdvanceRight(MovLayer *ml, Region *fence);   
+void mlAsteroidAdvance(MovLayer *ml, Region *fence); 

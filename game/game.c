@@ -49,11 +49,12 @@ Layer layer1 = {
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_ORANGE,
   0
-}
+};
 
 /* initial value of {0,0} will be overwritten */
-MovLayer ml0 = { &layer0, {1,0}, 0 }; 
-MovLayer ml1 = { &layer1, {2,2}, 0 }; 
+MovLayer ml0 = { &layer0, {1,0}, 0 };
+
+MovLayer ml1 = { &layer1, {0,2}, 0 }; 
 
 u_int bgColor = COLOR_BLUE;     /**< The background color */
 int redrawScreen = 1;           /**< Boolean for whether screen needs to be redrawn */
