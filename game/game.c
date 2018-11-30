@@ -51,6 +51,13 @@ Layer layer1 = {
   0
 };
 
+Layer layer2 = {
+  (AbShape *)&circle4,
+  {SIZE, SIZE+SIZE}, /**< bit below & right of center */
+  {0,0}, {0,0},				    /* last & next pos */
+  COLOR_ORANGE,
+  0
+};
 /* initial value of {0,0} will be overwritten */
 MovLayer ml0 = { &layer0, {1,0}, 0 };
 
@@ -84,6 +91,9 @@ void main()
   layerInit(&layer1);
   layerDraw(&layer1);
 
+  layerInit(&layer2);
+  layerDraw(&layer2);
+
   layerGetBounds(&fieldLayer, &fieldFence);
 
   enableWDTInterrupts();      /**< enable periodic interrupt */
@@ -104,9 +114,12 @@ void main()
 /** Watchdog timer interrupt handler. 15 interrupts/sec */
 void wdt_c_handler()
 {
+  short enemies = screenWidth/SIZE; 
   static short count = 0;
   P1OUT |= GREEN_LED;		      /**< Green LED on when cpu on */
   count ++;
+
+  MovLayer 
 
   u_int switches = p2sw_read();
 
