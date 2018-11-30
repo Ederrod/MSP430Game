@@ -50,10 +50,10 @@ Layer layer2 = {
   0
 };
 /* initial value of {0,0} will be overwritten */
-MovLayer ml0 = { &layer0, {1,0}, 0 };
+MovLayer ml0 = { &layer0, {1,0}, 0 };  // Player
 
 
-MovLayer ml1 = { &layer1, {0,-2}, 0 }; 
+MovLayer ml1 = { &layer1, {0,-2}, 0 }; // asteroid
 
 
 Region fieldFence;
@@ -121,8 +121,8 @@ short game_run(short count)
     } 
 
     if (count == 30){
-        mlAsteroidAdvance(&asteroids, &fieldFence); 
-        char end = collisionDetection(&asteroids, &ml0);
+        mlAsteroidAdvance(&ml1, &fieldFence); 
+        char end = collisionDetection(&ml1, &ml0);
         if (end)
             game_state = 0; 
         if (p2sw_read())
