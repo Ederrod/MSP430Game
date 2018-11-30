@@ -130,7 +130,7 @@ void wdt_c_handler()
     mlAsteroidAdvance(&ml1, &fieldFence); 
     char end = collisionDetection(&ml1, &ml0);
     if (end)
-      drawString5x7(40, 70, "You Suck", COLOR_GOLD, COLOR_NAVY); 
+      drawString5x7(40, 70, "You Suck", COLOR_GOLD, bgColor); 
     if (p2sw_read())
       redrawScreen = 1;
     count = 0;
