@@ -74,7 +74,8 @@ void mlPlayerAdvanceRight(MovLayer *ml, Region *fence)
   } 
 }
 
-void mlAsteroidAdvance(MovLayer *ml, Region *fence){
+void mlAsteroidAdvance(MovLayer *ml, Region *fence)
+{
   Vec2 newPos;
   u_char axis;
   Region shapeBoundary;
@@ -84,13 +85,21 @@ void mlAsteroidAdvance(MovLayer *ml, Region *fence){
     for (axis = 0; axis < 2; axis ++){
       if ((shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis]) || 
           (shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis])) { 
-	int velocity = -ml->velocity.axes[axis];// = 0;
-          ml->layer->color = COLOR_NAVY;
-  //        newPos.axes[axis] += (2 * velocity);
+	        int velocity = -ml->velocity.axes[axis]; // = 0;
       }	
-      
-
         ml->layer->posNext = newPos;
     }       
   } 
+}
+
+char collisionDetection(MovLayer *asteroids, MovLayer *player)
+{
+  char collision = 0; 
+  u_char axis; 
+  for (; asteroids; asteroids = asteroids->next){
+    if (&asteroids->layer->pos == &player->layer->pos){
+      collision = 1; 
+    }
+  }
+  return collision; 
 }

@@ -114,6 +114,7 @@ void wdt_c_handler()
     mlPlayerAdvanceLeft(&ml0, &fieldFence);
     redrawScreen = 1;  
   }
+
   if((switches & (1<<3)) == 0){
     mlPlayerAdvanceRight(&ml0, &fieldFence);
     redrawScreen = 1;  
@@ -127,9 +128,12 @@ void wdt_c_handler()
 
   if (count == 30){
     mlAsteroidAdvance(&ml1, &fieldFence); 
+    char end = collisionDetection(&ml1, &ml0);
+    if (end)
+      drawString5x7(40, 70, "You Suck", COLOR_GOLD, COLOR_NAVY); 
     if (p2sw_read())
       redrawScreen = 1;
-    count = 0; 
+    count = 0;
   }
 
   P1OUT &= ~GREEN_LED;		    /**< Green LED off when cpu off */
