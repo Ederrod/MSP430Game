@@ -54,7 +54,8 @@ Layer layer1 = {
 /* initial value of {0,0} will be overwritten */
 MovLayer ml0 = { &layer0, {1,0}, 0 };
 
-MovLayer ml1 = { &layer1, {0,2}, 0 }; 
+
+MovLayer ml1 = { &layer1, {0,-2}, 0 }; 
 
 u_int bgColor = COLOR_BLUE;     /**< The background color */
 int redrawScreen = 1;           /**< Boolean for whether screen needs to be redrawn */
@@ -128,6 +129,7 @@ void wdt_c_handler()
     mlAsteroidsAdvance(&ml1, &fieldFence); 
     if (p2sw_read())
       redrawScreen = 1;
+    count = 0; 
   }
 
   P1OUT &= ~GREEN_LED;		    /**< Green LED off when cpu off */
