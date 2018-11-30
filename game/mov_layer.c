@@ -101,12 +101,12 @@ char collisionDetection(MovLayer *asteroids, MovLayer *player)
   for (; asteroids; asteroids = asteroids->next){
     abShapeGetBounds(asteroids->layer->abShape, &asteroids->layer->pos, &asteroidBound); 
     abShapeGetBounds(player->layer->abShape, &player->layer->pos, &playerBound); 
-    for (axis = 0; axis < 2; axis++){
-      if ((asteroidBound.botRight.axes[axis] >= playerBound.topLeft.axes[axis]) &&
-          (asteroidBound.botRight.axes[axis] <= playerBound.botRight.axes[axis])){
-        collision = 1; 
-      }
-    }
+    if ((asteroidBound.botRight.axes[0] >= playerBound.topLeft.axes[0]) && 
+        (asteroidBound.botRight.axes[0] <= playerBound.botRight.axes[0]) &&
+        (asteroidBound.botRight.axes[1] >= playerBound.topLeft.axes[1]) &&
+        (asteroidBound.botRight.axes[1] <= playerBound.botRight.axes[1])){
+          collision = 1; 
+        }
   }
   return collision; 
 }
