@@ -44,7 +44,7 @@ Layer layer0 = {		/**< Layer with a red square */
 };
 
 Layer layer1 = {
-  (AbShape *)&circle8,
+  (AbShape *)&circle6,
   {SIZE, SIZE}, /**< bit below & right of center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_ORANGE,
@@ -119,6 +119,18 @@ void wdt_c_handler()
   P1OUT |= GREEN_LED;		      /**< Green LED on when cpu on */
   count ++;
 
+  MovLayer asteroids; 
+  short i; 
+
+  for (i = 0; i < 1; i++){
+    int num = (rand() %  (2 - 1 + 1)) + 1;
+    Layer temp =  (num == 1) ? layer1 : layer2;
+    temp.pos = {0, (rand() % ((screenWidth-8)-SIZE + 1) +SIZE}; 
+    asteroids.layer = &temp; 
+    asteroids.velocity = {0,-2}; 
+    asteroids.next = 0; 
+  }
+
   u_int switches = p2sw_read();
 
   if((switches & (1<<0)) == 0){
@@ -138,8 +150,8 @@ void wdt_c_handler()
   } 
 
   if (count == 30){
-    mlAsteroidAdvance(&ml1, &fieldFence); 
-    char end = collisionDetection(&ml1, &ml0);
+    mlAsteroidAdvance(&asteroids, &fieldFence); 
+    char end = collisionDetection(&asteroids, &ml0);
     if (end)
       drawString5x7(40, 70, "You Suck", COLOR_GOLD, bgColor); 
     if (p2sw_read())
