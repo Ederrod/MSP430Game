@@ -126,7 +126,7 @@ void wdt_c_handler()
   } 
 
   if (count == 30){
-    mlAsteroidsAdvance(&ml1, &fieldFence); 
+    mlAsteroidAdvance(&ml1, &fieldFence); 
     if (p2sw_read())
       redrawScreen = 1;
     count = 0; 
