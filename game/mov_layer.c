@@ -102,7 +102,8 @@ char collisionDetection(MovLayer *asteroids, MovLayer *player)
     abShapeGetBounds(asteroids->layer->abShape, &asteroids->layer->pos, &asteroidBound); 
     abShapeGetBounds(player->layer->abShape, &player->layer->pos, &playerBound); 
     for (axis = 0; axis < 2; axis++){
-      if (asteroidBound.botRight.axes[axis] >= playerBound.topLeft.axes[axis]){
+      if ((asteroidBound.botRight.axes[axis] >= playerBound.topLeft.axes[axis]) &&
+          (asteroidBound.botRight.axes[axis] <= playerBound.botRight.axes[axis])){
         collision = 1; 
       }
     }
