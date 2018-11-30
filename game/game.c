@@ -53,7 +53,7 @@ Layer layer1 = {
 
 Layer layer2 = {
   (AbShape *)&circle4,
-  {SIZE, SIZE+SIZE}, /**< bit below & right of center */
+  {SIZE+SIZE, SIZE}, /**< bit below & right of center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_ORANGE,
   0
@@ -118,8 +118,6 @@ void wdt_c_handler()
   static short count = 0;
   P1OUT |= GREEN_LED;		      /**< Green LED on when cpu on */
   count ++;
-
-  MovLayer 
 
   u_int switches = p2sw_read();
 
