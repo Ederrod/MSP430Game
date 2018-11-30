@@ -95,10 +95,16 @@ void mlAsteroidAdvance(MovLayer *ml, Region *fence)
 char collisionDetection(MovLayer *asteroids, MovLayer *player)
 {
   char collision = 0; 
-  u_char axis; 
+  u_char axis;
+  Region asteroidBound;  
+  Region playerBound;  
   for (; asteroids; asteroids = asteroids->next){
-    if (&asteroids->layer->pos == &player->layer->pos){
-      collision = 1; 
+    abShapeGetBounds(asteroids->layer->abShape, &asteroids->layer->pos, &asteroidBound); 
+    abShapeGetBounds(player->layer->abShape, &player->layer->pos, &playerBound); 
+    for (axis = 0; axis < 2; axis++){
+      if (asteroidBound.botRight.axes[axis] >= playerBound.topLeft.axes[axis]){
+        collision = 1; 
+      }
     }
   }
   return collision; 
