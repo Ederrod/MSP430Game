@@ -74,7 +74,7 @@ void main()
   layerInit(&layer0);
   layerDraw(&layer0);
 
-  as = init_asteroids();
+  init_asteroids(&as);
   //layerInit((as.layer));
   // layerDraw((as.layer)); 
   // layerInit(&layer1);

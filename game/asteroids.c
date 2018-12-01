@@ -15,8 +15,8 @@ void init_asteroids(MovLayer *result)
     //as.pos.axes[0] = (rand()% (screenWidth-0+1))+1; 
     //as.pos.axes[0] = (rand()% (screenWidth-0+1))+1; 
     //as.color = COLOR_CYAN; 
-    result->velocity->axes[0] = 0; 
-    result->velocity->axes[1] = 0;
+    result->velocity.axes[0] = 0; 
+    result->velocity.axes[1] = 0;
     result->next = 0; 
 }
 
