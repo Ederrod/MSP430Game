@@ -9,6 +9,7 @@
 #include "mov_layer.h"
 
 #define SIZE 8
+#define GREEN_LED BIT6
 char game_running, game_end; 
 
 AbRect rect10 = {abRectGetBounds, abRectCheck, {SIZE, SIZE/2}};
