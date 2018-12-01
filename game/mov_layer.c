@@ -26,8 +26,7 @@ void movLayerDraw(MovLayer *movLayers, Layer *layers)
         Vec2 pixelPos = {col, row};
         u_int color = bgColor;
         Layer *probeLayer;
-        for (probeLayer = layers; probeLayer; 
-            probeLayer = probeLayer->next) { /* probe all layers, in order */
+        for (probeLayer = layers; probeLayer; probeLayer = probeLayer->next) { /* probe all layers, in order */
           if (abShapeCheck(probeLayer->abShape, &probeLayer->pos, &pixelPos)) {
             color = probeLayer->color;
             break; 
@@ -80,15 +79,18 @@ void mlAsteroidAdvance(MovLayer *ml, Region *fence)
   u_char axis;
   Region shapeBoundary;
   for (; ml; ml = ml->next){
-    vec2Sub(&newPos, &ml->layer->posNext, &ml->velocity);
-    abShapeGetBounds(ml->layer->abShape, &newPos, &shapeBoundary);
-    for (axis = 0; axis < 2; axis ++){
-      if ((shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis]) || 
-          (shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis])) { 
-	        int velocity = -ml->velocity.axes[axis]; // = 0;
-      }	
-        ml->layer->posNext = newPos;
-    }       
+    
+    for (; ml->layer; ml->layer = ml->layer->next){
+      vec2Sub(&newPos, &ml->layer->posNext, &ml->velocity);
+      abShapeGetBounds(ml->layer->abShape, &newPos, &shapeBoundary);
+      for (axis = 0; axis < 2; axis ++){
+        if ((shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis]) || 
+            (shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis])) { 
+            int velocity = -ml->velocity.axes[axis]; // = 0;
+        }	
+          ml->layer->posNext = newPos;
+      }
+    }
   } 
 }
 
