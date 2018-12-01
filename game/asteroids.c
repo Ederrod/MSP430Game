@@ -20,7 +20,7 @@ void init_asteroids(MovLayer *result)
     result->next = 0; 
 }
 
-void addLayer(const MovLayer *ml)
+void addLayer(MovLayer *ml)
 {
     Layer new_layer = {
         ((rand()%2)==0) ? (AbShape *)&circle8 : (AbShape *)&circle6,
@@ -31,11 +31,12 @@ void addLayer(const MovLayer *ml)
     }; 
 
     if (ml->layer == 0){
-        ml->layer = new_layer; 
+        ml->layer = &new_layer; 
         return; 
     } 
 
-    Layer temp = ml->layer; 
-    while (temp=temp->next);
-    temp = new_layer; 
+    Layer* temp = ml->layer; 
+    while (temp) temp = temp->next;
+    *temp = new_layer;
+    return;
 }
