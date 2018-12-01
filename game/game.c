@@ -10,6 +10,7 @@
 
 #define SIZE 8
 #define GREEN_LED BIT6
+
 char game_running, game_end; 
 
 AbRect rect10 = {abRectGetBounds, abRectCheck, {SIZE, SIZE/2}};
@@ -129,7 +130,7 @@ void wdt_c_handler()
       mlAsteroidAdvance(&ml1, &fieldFence); 
       char end = collisionDetection(&ml1, &ml0);
       if (end)
-          game_state = 0; 
+          //
       if (p2sw_read())
           redrawScreen = 1;
       count = 0;
