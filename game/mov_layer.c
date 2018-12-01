@@ -1,4 +1,5 @@
 #include <libTimer.h>
+#include <stdlib.h>
 
 #include "mov_layer.h"
 
@@ -67,7 +68,7 @@ void mlPlayerAdvanceRight(MovLayer *ml, Region *fence)
     if ((shapeBoundary.topLeft.axes[0] < fence->topLeft.axes[0]) ||
     (shapeBoundary.botRight.axes[0] > fence->botRight.axes[0])){
       int velocity = -ml->velocity.axes[0]; 
-      newPos.axes[0] += (2*velocity); 
+      newPos.axes[0] += (2*velocity);
     }
     ml->layer->posNext = newPos;
   } 
@@ -81,13 +82,19 @@ void mlAsteroidAdvance(MovLayer *ml, Region *fence)
   for (; ml; ml = ml->next){
     vec2Sub(&newPos, &ml->layer->posNext, &ml->velocity);
     abShapeGetBounds(ml->layer->abShape, &newPos, &shapeBoundary);
-    for (axis = 0; axis < 2; axis ++){
-      if ((shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis]) || 
-          (shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis])) { 
-          int velocity = -ml->velocity.axes[axis]; // = 0;
-      }	
-        ml->layer->posNext = newPos;
+    if (shapeBoundary.topLeft.axes[1] >= fence->botRight.axes[1]){
+      newPos.axes[0] = (rand()*((screenWidth-8)-8)+8); 
+      newPos.axes[1] = 0; 
     }
+    else{
+      for (axis = 0; axis < 2; axis ++){
+        if ((shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis]) || 
+            (shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis])) { 
+            int velocity = -ml->velocity.axes[axis]; 
+        }
+      }
+    }
+      ml->layer->posNext = newPos;
   } 
 }
 
