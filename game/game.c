@@ -40,7 +40,7 @@ Layer layer0 = {		/**< Layer with a red square */
 // Asteroids
 Layer asteroid8 = {
   (AbShape *) &circle8,
-  {screenWidth/2, screenHeight/2},/**< center */
+  {SIZE, SIZE},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   0
@@ -48,7 +48,7 @@ Layer asteroid8 = {
 
 Layer asteroid7 = {
   (AbShape *) &circle8,
-  {screenWidth/2, screenHeight/2},/**< center */
+  {SIZE*2, SIZE},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   &asteroid8,
