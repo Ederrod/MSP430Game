@@ -48,7 +48,7 @@ Layer asteroid8 = {
 
 Layer asteroid7 = {
   (AbShape *) &circle6,
-  {SIZE*2, SIZE},/**< center */
+  {SIZE+SIZE+1, SIZE},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   0,
@@ -56,7 +56,7 @@ Layer asteroid7 = {
 
 Layer asteroid6 = {
   (AbShape *) &circle6,
-  {screenWidth/2, screenHeight/2},/**< center */
+  {SIZE+SIZE+SIZE+1, SIZE},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   0,
@@ -64,7 +64,7 @@ Layer asteroid6 = {
 
 Layer asteroid5 = {
   (AbShape *) &circle6,
-  {screenWidth/2, screenHeight/2},/**< center */
+  {SIZE+SIZE+SIZE+SIZE+1, SIZE},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   0,
@@ -72,7 +72,7 @@ Layer asteroid5 = {
 
 Layer asteroid4 = {
   (AbShape *) &circle6,
-  {screenWidth/2, screenHeight/2},/**< center */
+  {SIZE+SIZE+SIZE+SIZE+SIZE+1, SIZE},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   0,
@@ -80,7 +80,7 @@ Layer asteroid4 = {
 
 Layer asteroid3 = {
   (AbShape *) &circle6,
-  {screenWidth/2, screenHeight/2},/**< center */
+  {SIZE+SIZE+SIZE+SIZE+SIZE+SIZE+1, SIZE},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   0,
@@ -88,7 +88,7 @@ Layer asteroid3 = {
 
 Layer asteroid2 = {
   (AbShape *) &circle6,
-  {screenWidth/2, screenHeight/2},/**< center */
+  {SIZE+SIZE+SIZE+SIZE+SIZE+SIZE+SIZE+1, SIZE},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   0,
@@ -201,11 +201,17 @@ void wdt_c_handler()
       mlAsteroidAdvance(&as5, &fieldFence);
       mlAsteroidAdvance(&as6, &fieldFence);
 
-      //char end = collisionDetection(&ml1, &ml0);
-      //if (end)
-          //
+      char end = collisionDetection(&as, &ml0) && 
+      collisionDetection(&as1, &ml0) && 
+      collisionDetection(&as2, &ml0) &&
+      collisionDetection(&as3, &ml0) &&
+      collisionDetection(&as4, &ml0) &&
+      collisionDetection(&as5, &ml0) &&
+      collisionDetection(&as6, &ml0);
+      if (end)
+        drawString5x7(20,20, "You Lost", COLOR_GREEN, COLOR_BLUE);
       if (p2sw_read())
-          redrawScreen = 1;
+        redrawScreen = 1;
       count = 0;
   }
   P1OUT &= ~GREEN_LED;		    /**< Green LED off when cpu off */
