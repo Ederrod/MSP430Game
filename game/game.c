@@ -7,6 +7,7 @@
 #include <abCircle.h>
 
 #include "mov_layer.h"
+#include "asteroids.c" 
 
 #define SIZE 8
 #define GREEN_LED BIT6
@@ -73,7 +74,9 @@ void main()
   layerInit(&layer0);
   layerDraw(&layer0);
 
-  as = init_asteroids(); 
+  as = init_asteroids();
+  //layerInit((as.layer));
+  // layerDraw((as.layer)); 
   // layerInit(&layer1);
   // layerDraw(&layer1);
 
@@ -90,7 +93,7 @@ void main()
       P1OUT |= GREEN_LED;       /**< Green led on when CPU on */
       redrawScreen = 0;
       movLayerDraw(&ml0, &layer0);
-      movLayerDraw(&ml1, &layer1); 
+      // movLayerDraw(&ml1, &layer1); 
   }
 }
 
