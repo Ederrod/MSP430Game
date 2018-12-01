@@ -39,7 +39,7 @@ Layer layer0 = {		/**< Layer with a red square */
 
 // Asteroids
 Layer asteroid8 = {
-  (AbShape *) &circle8,
+  (AbShape *) &circle6,
   {SIZE, SIZE},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
@@ -47,7 +47,7 @@ Layer asteroid8 = {
 };
 
 Layer asteroid7 = {
-  (AbShape *) &circle8,
+  (AbShape *) &circle6,
   {SIZE*2, SIZE},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
@@ -55,7 +55,7 @@ Layer asteroid7 = {
 };
 
 Layer asteroid6 = {
-  (AbShape *) &circle8,
+  (AbShape *) &circle6,
   {screenWidth/2, screenHeight/2},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
@@ -63,7 +63,7 @@ Layer asteroid6 = {
 };
 
 Layer asteroid5 = {
-  (AbShape *) &circle8,
+  (AbShape *) &circle6,
   {screenWidth/2, screenHeight/2},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
@@ -71,7 +71,7 @@ Layer asteroid5 = {
 };
 
 Layer asteroid4 = {
-  (AbShape *) &circle8,
+  (AbShape *) &circle6,
   {screenWidth/2, screenHeight/2},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
@@ -79,7 +79,7 @@ Layer asteroid4 = {
 };
 
 Layer asteroid3 = {
-  (AbShape *) &circle8,
+  (AbShape *) &circle6,
   {screenWidth/2, screenHeight/2},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
@@ -87,7 +87,7 @@ Layer asteroid3 = {
 };
 
 Layer asteroid2 = {
-  (AbShape *) &circle8,
+  (AbShape *) &circle6,
   {screenWidth/2, screenHeight/2},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
