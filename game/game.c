@@ -37,20 +37,14 @@ Layer layer0 = {		/**< Layer with a red square */
 }
 
 Layer layer1 = {
-  (AbShape *)&circle6,
+  (AbShape *)&circle14,
   {SIZE, SIZE}, /**< bit below & right of center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_ORANGE,
   0
 };
 
-Layer layer2 = {
-  (AbShape *)&circle4,
-  {SIZE+SIZE, SIZE}, /**< bit below & right of center */
-  {0,0}, {0,0},				    /* last & next pos */
-  COLOR_ORANGE,
-  0
-};
+
 /* initial value of {0,0} will be overwritten */
 MovLayer ml0 = { &layer0, {1,0}, 0 };  // Player
 
