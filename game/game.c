@@ -37,21 +37,67 @@ Layer layer0 = {		/**< Layer with a red square */
   &fieldLayer,
 };
 
-// Layer layer1 = {
-//   (AbShape *)&circle6,
-//   {SIZE, SIZE}, /**< bit below & right of center */
-//   {0,0}, {0,0},				    /* last & next pos */
-//   COLOR_ORANGE,
-//   0
-// };
+// Asteroids
+Layer asteroid8 = {
+  (AbShape *) &circle8,
+  {screenWidth/2, screenHeight/2},/**< center */
+  {0,0}, {0,0},				    /* last & next pos */
+  COLOR_BLACK,
+  0
+}
 
+Layer asteroid7 = {
+  (AbShape *) &circle8,
+  {screenWidth/2, screenHeight/2},/**< center */
+  {0,0}, {0,0},				    /* last & next pos */
+  COLOR_BLACK,
+  &asteroid8,
+}
+
+Layer asteroid6 = {
+  (AbShape *) &circle8,
+  {screenWidth/2, screenHeight/2},/**< center */
+  {0,0}, {0,0},				    /* last & next pos */
+  COLOR_BLACK,
+  &asteroid7,
+}
+
+Layer asteroid5 = {
+  (AbShape *) &circle8,
+  {screenWidth/2, screenHeight/2},/**< center */
+  {0,0}, {0,0},				    /* last & next pos */
+  COLOR_BLACK,
+  &asteroid6,
+}
+
+Layer asteroid4 = {
+  (AbShape *) &circle8,
+  {screenWidth/2, screenHeight/2},/**< center */
+  {0,0}, {0,0},				    /* last & next pos */
+  COLOR_BLACK,
+  &asteroid5,
+}
+
+Layer asteroid3 = {
+  (AbShape *) &circle8,
+  {screenWidth/2, screenHeight/2},/**< center */
+  {0,0}, {0,0},				    /* last & next pos */
+  COLOR_BLACK,
+  &asteroid4,
+}
+
+Layer asteroid2 = {
+  (AbShape *) &circle8,
+  {screenWidth/2, screenHeight/2},/**< center */
+  {0,0}, {0,0},				    /* last & next pos */
+  COLOR_BLACK,
+  &asteroid3,
+}
 
 /* initial value of {0,0} will be overwritten */
 MovLayer ml0 = { &layer0, {1,0}, 0 };  // Player
 
-
-//MovLayer ml1 = { &layer1, {0,-2}, 0 }; // asteroid
-MovLayer as; 
+MovLayer as {&asteroid2, {0,-2}, 0}; // Asteroid
 
 Region fieldFence;
 
@@ -72,9 +118,22 @@ void main()
   shapeInit();
 
   layerInit(&layer0);
-  layerDraw(&layer0);
+  layerInit(&asteroid2);
+  layerInit(&asteroid3);
+  layerInit(&asteroid4);
+  layerInit(&asteroid5);
+  layerInit(&asteroid6);
+  layerInit(&asteroid7);
+  layerInit(&asteroid8);
 
-  init_asteroids(&as);
+  layerDraw(&layer0);
+  layerDraw(&asteroid2);
+  layerDraw(&asteroid3);
+  layerDraw(&asteroid4);
+  layerDraw(&asteroid5);
+  layerDraw(&asteroid6);
+  layerDraw(&asteroid7);
+  layerDraw(&asteroid8);
   
   //layerInit((as.layer));
   // layerDraw((as.layer)); 
@@ -94,7 +153,7 @@ void main()
       P1OUT |= GREEN_LED;       /**< Green led on when CPU on */
       redrawScreen = 0;
       movLayerDraw(&ml0, &layer0);
-      // movLayerDraw(&ml1, &layer1); 
+      movLayerDraw(&as, &asteroid2);  
   }
 }
 
