@@ -34,7 +34,7 @@ Layer layer0 = {		/**< Layer with a red square */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_RED,
   &fieldLayer,
-}
+};
 
 Layer layer1 = {
   (AbShape *)&circle14,
@@ -76,9 +76,6 @@ void main()
 
   layerInit(&layer1);
   layerDraw(&layer1);
-
-  layerInit(&layer2);
-  layerDraw(&layer2);
 
   layerGetBounds(&fieldLayer, &fieldFence);
 
