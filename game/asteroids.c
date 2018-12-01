@@ -6,7 +6,21 @@
 #include <shape.h>
 #include <abCircle.h>
 
+Layer new_layer = {
+    (AbShape *)&circle6,
+    {((rand()% (screenWidth-8+1))+1)*-1,(rand()% (screenWidth-8+1))+1},
+    {0,0},{0,0},
+    COLOR_CYAN,
+    new_layer2,
+};
 
+Layer new_layer2 = {
+    (AbShape *)&circle8,
+    {((rand()% (screenWidth-8+1))+1)*-1,(rand()% (screenWidth-8+1))+1},
+    {0,0},{0,0},
+    COLOR_CYAN,
+    0
+};
 
 void init_asteroids(MovLayer *result)
 {
@@ -15,6 +29,7 @@ void init_asteroids(MovLayer *result)
     //as.pos.axes[0] = (rand()% (screenWidth-0+1))+1; 
     //as.pos.axes[0] = (rand()% (screenWidth-0+1))+1; 
     //as.color = COLOR_CYAN; 
+    result->abShape = &new_layer; 
     result->velocity.axes[0] = 0; 
     result->velocity.axes[1] = -2;
     result->next = 0; 
