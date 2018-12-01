@@ -8,19 +8,15 @@
 
 
 
-MovLayer init_asteroids()
+void init_asteroids(MovLayer *result)
 {
   //Layer as; 
     //as.abShape = ((rand() % 2)==0) ? (AbShape *)&circle8 : (AbShape *)&circle6; 
     //as.pos.axes[0] = (rand()% (screenWidth-0+1))+1; 
     //as.pos.axes[0] = (rand()% (screenWidth-0+1))+1; 
     //as.color = COLOR_CYAN; 
-
-    MovLayer mAs; 
-    //mAs.layer = &as; 
-    mAs.velocity.axes[0]=0; 
-    mAs.velocity.axes[0]=-2; 
-
-    return mAs; 
+    result->velocity->axes[0] = 0; 
+    result->velocity->axes[1] = 0;
+    result->next = 0; 
 }
 
