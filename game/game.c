@@ -51,7 +51,7 @@ Layer asteroid7 = {
   {SIZE*2, SIZE},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
-  &asteroid8,
+  0,
 };
 
 Layer asteroid6 = {
@@ -59,7 +59,7 @@ Layer asteroid6 = {
   {screenWidth/2, screenHeight/2},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
-  &asteroid7,
+  0,
 };
 
 Layer asteroid5 = {
@@ -67,7 +67,7 @@ Layer asteroid5 = {
   {screenWidth/2, screenHeight/2},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
-  &asteroid6,
+  0,
 };
 
 Layer asteroid4 = {
@@ -75,7 +75,7 @@ Layer asteroid4 = {
   {screenWidth/2, screenHeight/2},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
-  &asteroid5,
+  0,
 };
 
 Layer asteroid3 = {
@@ -83,7 +83,7 @@ Layer asteroid3 = {
   {screenWidth/2, screenHeight/2},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
-  &asteroid4,
+  0,
 };
 
 Layer asteroid2 = {
@@ -91,13 +91,19 @@ Layer asteroid2 = {
   {screenWidth/2, screenHeight/2},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
-  &asteroid3,
+  0,
 };
 
 /* initial value of {0,0} will be overwritten */
 MovLayer ml0 = { &layer0, {1,0}, 0 };  // Player
 
 MovLayer as = {&asteroid2, {0,-2}, 0}; // Asteroid
+MovLayer as1 = {&asteroid3, {0,-2}, 0};
+MovLayer as2 = {&asteroid4, {0,-2}, 0};
+MovLayer as3 = {&asteroid5, {0,-2}, 0};
+MovLayer as4 = {&asteroid6, {0,-2}, 0};
+MovLayer as5 = {&asteroid7, {0,-2}, 0};
+MovLayer as6 = {&asteroid8, {0,-2}, 0};
 
 Region fieldFence;
 
@@ -153,7 +159,13 @@ void main()
       P1OUT |= GREEN_LED;       /**< Green led on when CPU on */
       redrawScreen = 0;
       movLayerDraw(&ml0, &layer0);
-      movLayerDraw(&as, &asteroid2);  
+      movLayerDraw(&as, &asteroid2); 
+      movLayerDraw(&as1, &asteroid3);
+      movLayerDraw(&as2, &asteroid4);
+      movLayerDraw(&as3, &asteroid5);
+      movLayerDraw(&as4, &asteroid6);
+      movLayerDraw(&as5, &asteroid7);
+      movLayerDraw(&as6, &asteroid8); 
   }
 }
 

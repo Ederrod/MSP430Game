@@ -79,17 +79,14 @@ void mlAsteroidAdvance(MovLayer *ml, Region *fence)
   u_char axis;
   Region shapeBoundary;
   for (; ml; ml = ml->next){
-    
-    for (; ml->layer; ml->layer = ml->layer->next){
-      vec2Sub(&newPos, &ml->layer->posNext, &ml->velocity);
-      abShapeGetBounds(ml->layer->abShape, &newPos, &shapeBoundary);
-      for (axis = 0; axis < 2; axis ++){
-        if ((shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis]) || 
-            (shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis])) { 
-            int velocity = -ml->velocity.axes[axis]; // = 0;
-        }	
-          ml->layer->posNext = newPos;
-      }
+    vec2Sub(&newPos, &ml->layer->posNext, &ml->velocity);
+    abShapeGetBounds(ml->layer->abShape, &newPos, &shapeBoundary);
+    for (axis = 0; axis < 2; axis ++){
+      if ((shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis]) || 
+          (shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis])) { 
+          int velocity = -ml->velocity.axes[axis]; // = 0;
+      }	
+        ml->layer->posNext = newPos;
     }
   } 
 }
