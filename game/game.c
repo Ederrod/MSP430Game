@@ -193,7 +193,14 @@ void wdt_c_handler()
   } 
 
   if (count == 30){
-      //mlAsteroidAdvance(&ml1, &fieldFence); 
+      mlAsteroidAdvance(&as, &fieldFence);
+      mlAsteroidAdvance(&as1, &fieldFence);
+      mlAsteroidAdvance(&as2, &fieldFence);
+      mlAsteroidAdvance(&as3, &fieldFence);
+      mlAsteroidAdvance(&as4, &fieldFence);
+      mlAsteroidAdvance(&as5, &fieldFence);
+      mlAsteroidAdvance(&as6, &fieldFence);
+
       //char end = collisionDetection(&ml1, &ml0);
       //if (end)
           //
