@@ -9,7 +9,7 @@
 #include "mov_layer.h"
 
 
-static enum {Running = 1, Stop = 0}game_state; 
+char game_running, game_end; 
 
 AbRect rect10 = {abRectGetBounds, abRectCheck, {SIZE, SIZE/2}};
 
@@ -66,7 +66,8 @@ void game_init()
     P1DIR |= GREEN_LED;		/**< Green led on when CPU on */		
     P1OUT |= GREEN_LED;
 
-    game_state = 1; 
+    game_running = 1;
+    game_end = 0;  
 
     configureClocks();
     lcd_init();
