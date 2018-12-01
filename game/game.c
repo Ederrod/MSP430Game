@@ -36,21 +36,21 @@ Layer layer0 = {		/**< Layer with a red square */
   &fieldLayer,
 };
 
-Layer layer1 = {
-  (AbShape *)&circle6,
-  {SIZE, SIZE}, /**< bit below & right of center */
-  {0,0}, {0,0},				    /* last & next pos */
-  COLOR_ORANGE,
-  0
-};
+// Layer layer1 = {
+//   (AbShape *)&circle6,
+//   {SIZE, SIZE}, /**< bit below & right of center */
+//   {0,0}, {0,0},				    /* last & next pos */
+//   COLOR_ORANGE,
+//   0
+// };
 
 
 /* initial value of {0,0} will be overwritten */
 MovLayer ml0 = { &layer0, {1,0}, 0 };  // Player
 
 
-MovLayer ml1 = { &layer1, {0,-2}, 0 }; // asteroid
-
+//MovLayer ml1 = { &layer1, {0,-2}, 0 }; // asteroid
+MovLayer as; 
 
 Region fieldFence;
 
@@ -73,8 +73,9 @@ void main()
   layerInit(&layer0);
   layerDraw(&layer0);
 
-  layerInit(&layer1);
-  layerDraw(&layer1);
+  as = init_asteroids(); 
+  // layerInit(&layer1);
+  // layerDraw(&layer1);
 
   layerGetBounds(&fieldLayer, &fieldFence);
 
@@ -117,9 +118,9 @@ void wdt_c_handler()
   } 
 
   if (count == 30){
-      mlAsteroidAdvance(&ml1, &fieldFence); 
-      char end = collisionDetection(&ml1, &ml0);
-      if (end)
+      //mlAsteroidAdvance(&ml1, &fieldFence); 
+      //char end = collisionDetection(&ml1, &ml0);
+      //if (end)
           //
       if (p2sw_read())
           redrawScreen = 1;
