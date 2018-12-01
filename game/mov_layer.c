@@ -51,7 +51,7 @@ void mlPlayerAdvanceLeft(MovLayer *ml, Region *fence)
     if ((shapeBoundary.topLeft.axes[0] < fence->topLeft.axes[0]) ||
       (shapeBoundary.botRight.axes[0] > fence->botRight.axes[0]) ) {
       int velocity = -ml->velocity.axes[0];
-      newPos.axes[0] -= (2*velocity);
+      newPos.axes[0] -= (4*velocity);
     } 
     ml->layer->posNext = newPos;
   } 

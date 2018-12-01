@@ -11,7 +11,7 @@
 #define SIZE 8
 #define GREEN_LED BIT6
 
-char game_running, game_end; 
+char game_running; 
 
 AbRect rect10 = {abRectGetBounds, abRectCheck, {SIZE, SIZE/2}};
 
@@ -37,7 +37,7 @@ Layer layer0 = {		/**< Layer with a red square */
 };
 
 Layer layer1 = {
-  (AbShape *)&circle14,
+  (AbShape *)&circle6,
   {SIZE, SIZE}, /**< bit below & right of center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_ORANGE,
@@ -61,8 +61,7 @@ void main()
   P1DIR |= GREEN_LED;		/**< Green led on when CPU on */		
   P1OUT |= GREEN_LED;
 
-  game_running = 1;
-  game_end = 0;  
+  game_running = 1; 
 
   configureClocks();
   lcd_init();
@@ -84,8 +83,8 @@ void main()
 
   for(;;) { 
       while (!redrawScreen) { /**< Pause CPU if screen doesn't need updating */
-      P1OUT &= ~GREEN_LED;    /**< Green led off witHo CPU */
-      or_sr(0x10);	      /**< CPU OFF */
+        P1OUT &= ~GREEN_LED;    /**< Green led off witHo CPU */
+        or_sr(0x10);	      /**< CPU OFF */
       }
       P1OUT |= GREEN_LED;       /**< Green led on when CPU on */
       redrawScreen = 0;
@@ -114,7 +113,7 @@ void wdt_c_handler()
 
   if (count == 15) {
       if (p2sw_read())
-      redrawScreen = 1;
+        redrawScreen = 1;
   } 
 
   if (count == 30){
