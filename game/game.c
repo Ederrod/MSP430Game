@@ -7,7 +7,7 @@
 #include <abCircle.h>
 
 #include "mov_layer.h"
-#include "asteroids.c" 
+ 
 
 #define SIZE 8
 #define GREEN_LED BIT6
@@ -44,7 +44,7 @@ Layer asteroid8 = {
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   0
-}
+};
 
 Layer asteroid7 = {
   (AbShape *) &circle8,
@@ -52,7 +52,7 @@ Layer asteroid7 = {
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   &asteroid8,
-}
+};
 
 Layer asteroid6 = {
   (AbShape *) &circle8,
@@ -60,7 +60,7 @@ Layer asteroid6 = {
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   &asteroid7,
-}
+};
 
 Layer asteroid5 = {
   (AbShape *) &circle8,
@@ -68,7 +68,7 @@ Layer asteroid5 = {
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   &asteroid6,
-}
+};
 
 Layer asteroid4 = {
   (AbShape *) &circle8,
@@ -76,7 +76,7 @@ Layer asteroid4 = {
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   &asteroid5,
-}
+};
 
 Layer asteroid3 = {
   (AbShape *) &circle8,
@@ -84,7 +84,7 @@ Layer asteroid3 = {
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   &asteroid4,
-}
+};
 
 Layer asteroid2 = {
   (AbShape *) &circle8,
@@ -92,12 +92,12 @@ Layer asteroid2 = {
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   &asteroid3,
-}
+};
 
 /* initial value of {0,0} will be overwritten */
 MovLayer ml0 = { &layer0, {1,0}, 0 };  // Player
 
-MovLayer as {&asteroid2, {0,-2}, 0}; // Asteroid
+MovLayer as = {&asteroid2, {0,-2}, 0}; // Asteroid
 
 Region fieldFence;
 
