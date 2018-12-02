@@ -42,7 +42,7 @@ Layer layer0 = {		/**< Layer with a red square */
 
 Layer asteroid6 = {
   (AbShape *) &circle6,
-  {SIZE+SIZE+SIZE+1, SIZE},/**< center */
+  {SIZE, SIZE},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   &layer0
@@ -50,7 +50,7 @@ Layer asteroid6 = {
 
 Layer asteroid5 = {
   (AbShape *) &circle6,
-  {SIZE+SIZE+SIZE+SIZE+1, SIZE},/**< center */
+  {SIZE*4, SIZE},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   &asteroid6
@@ -58,7 +58,7 @@ Layer asteroid5 = {
 
 Layer asteroid4 = {
   (AbShape *) &circle6,
-  {SIZE+SIZE+SIZE+SIZE+SIZE+1, SIZE},/**< center */
+  {screenWidth-SIZE, SIZE},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   &asteroid5
@@ -66,7 +66,7 @@ Layer asteroid4 = {
 
 Layer asteroid3 = {
   (AbShape *) &circle6,
-  {SIZE+SIZE+SIZE+SIZE+SIZE+SIZE+1, SIZE},/**< center */
+  {screenWidth/2, SIZE},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   &asteroid4
@@ -74,19 +74,21 @@ Layer asteroid3 = {
 
 Layer asteroid2 = {
   (AbShape *) &circle6,
-  {SIZE+SIZE+SIZE+SIZE+SIZE+SIZE+SIZE+1, SIZE},/**< center */
+  {screenWidth-(SIZE*4), SIZE},/**< center */
   {0,0}, {0,0},				    /* last & next pos */
   COLOR_BLACK,
   &asteroid3
 };
+
+
 void respawn(MovLayer *as)
 { 
   Region asRe;
   for (; as; as = as->next){
     abShapeGetBounds(as->layer->abShape,&as->layer->pos,&asRe);
     if (asRe.topLeft.axes[1]>=screenHeight){
-      as->layer->posNext.axes[0] = 10;
-      as->layer->posNext.axes[1] = 10;
+      as->layer->posNext.axes[0] = (as->layer->pos.axes[0]+10 >= screenWidth) 0 : as->layer->pos.axes[0]+10;
+      as->layer->posNext.axes[1] = 0;
     } 
   }
 }
