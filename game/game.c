@@ -7,6 +7,7 @@
 #include <abCircle.h>
 
 #include "mov_layer.h"
+#include "buzzer.h"
  
 
 #define SIZE 8
@@ -101,6 +102,7 @@ void main()
 
   configureClocks();
   lcd_init();
+  buzzer_init(); 
   shapeInit();
   p2sw_init(15);
 
@@ -151,11 +153,13 @@ void wdt_c_handler()
 
   if((switches & (1<<0)) == 0){
       mlPlayerAdvanceLeft(&ml0, &fieldFence);
+      buzzer_advance_frequency(); 
       redrawScreen = 1;  
     }
 
   if((switches & (1<<3)) == 0){
       mlPlayerAdvanceRight(&ml0, &fieldFence);
+      buzzer_advance_frequency();
       redrawScreen = 1;  
   }
 
