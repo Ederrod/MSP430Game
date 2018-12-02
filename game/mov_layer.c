@@ -82,19 +82,7 @@ void mlAsteroidAdvance(MovLayer *ml, Region *fence)
   for (; ml; ml = ml->next){
     vec2Sub(&newPos, &ml->layer->posNext, &ml->velocity);
     abShapeGetBounds(ml->layer->abShape, &newPos, &shapeBoundary);
-    if (shapeBoundary.topLeft.axes[1] >= fence->botRight.axes[1]){
-      newPos.axes[0] = (rand()*((screenWidth-8)-8)+8); 
-      newPos.axes[1] = 0; 
-    }
-    else{
-      for (axis = 0; axis < 2; axis ++){
-        if ((shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis]) || 
-            (shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis])) { 
-            int velocity = -ml->velocity.axes[axis]; 
-        }
-      }
-    }
-      ml->layer->posNext = newPos;
+     ml->layer->posNext = newPos;
   } 
 }
 
@@ -115,4 +103,15 @@ char collisionDetection(MovLayer *asteroids, MovLayer *player)
         }
   }
   return collision; 
+}
+
+void respawnCheck(MovLayer *asteroid){
+  Region asteroidB; 
+  for(; asteroids; asteroids = asteroids->next){
+    abShapeGetBounds(asteroids->layer->abShape, &asteroids->layer->posNext, &asteroidBound);
+    if (asteroidB.topLeft.axes[1] >= screenHeight){
+      asteroid->layer->posNext.axes[0] = (rand()*((screenWidth-8)-8)+8);
+      asteroid->layer->posNext.axes[1] = 0; 
+    }
+  }
 }

@@ -200,14 +200,15 @@ void wdt_c_handler()
       mlAsteroidAdvance(&as4, &fieldFence);
       mlAsteroidAdvance(&as5, &fieldFence);
       mlAsteroidAdvance(&as6, &fieldFence);
-
-      char end = collisionDetection(&as, &ml0) && 
-      collisionDetection(&as1, &ml0) && 
-      collisionDetection(&as2, &ml0) &&
-      collisionDetection(&as3, &ml0) &&
-      collisionDetection(&as4, &ml0) &&
-      collisionDetection(&as5, &ml0) &&
+      
+      char end = collisionDetection(&as, &ml0) ||
+      collisionDetection(&as1, &ml0) || 
+      collisionDetection(&as2, &ml0) ||
+      collisionDetection(&as3, &ml0) ||
+      collisionDetection(&as4, &ml0) ||
+      collisionDetection(&as5, &ml0) ||
       collisionDetection(&as6, &ml0);
+      respawnCheck(&as);
       if (end)
         drawString5x7(20,20, "You Lost", COLOR_GREEN, COLOR_BLUE);
       if (p2sw_read())
