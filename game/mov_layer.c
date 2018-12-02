@@ -104,3 +104,15 @@ char collisionDetection(MovLayer *asteroids, MovLayer *player)
   }
   return collision; 
 }
+
+void respawn(MovLayer *as)
+{ 
+  Region asRe;
+  for (; as; as = as->next){
+    abShapeGetBounds(as->layer->abShape,&as->layer->pos,&asRe);
+    if (asRe.topLeft.axes[1]>=screenHeight){
+      as->layer->posNext.axes[0] = (rand()*((screenWidth-8)-8)+8);
+      as->layer->posNext.axes[1] = 0;
+    } 
+  }
+}

@@ -140,6 +140,11 @@ void main()
       movLayerDraw(&as2, &asteroid4);
       movLayerDraw(&as3, &asteroid5);
       movLayerDraw(&as4, &asteroid6);
+      respawn(&as, &asteroid2); 
+      respawn(&as1, &asteroid3);
+      respawn(&as2, &asteroid4);
+      respawn(&as3, &asteroid5);
+      respawn(&as4, &asteroid6);
   }
 }
 
@@ -179,7 +184,7 @@ void wdt_c_handler()
       collisionDetection(&as1, &ml0) || 
       collisionDetection(&as2, &ml0) ||
       collisionDetection(&as3, &ml0) ||
-	collisionDetection(&as4, &ml0);
+	    collisionDetection(&as4, &ml0);
       if (end){
         drawString5x7(20,20, "You Lost", COLOR_GREEN, COLOR_BLUE);
       }
