@@ -79,7 +79,17 @@ Layer asteroid2 = {
   COLOR_BLACK,
   &asteroid3
 };
-
+void respawn(MovLayer *as)
+{ 
+  Region asRe;
+  for (; as; as = as->next){
+    abShapeGetBounds(as->layer->abShape,&as->layer->pos,&asRe);
+    if (asRe.topLeft.axes[1]>=screenHeight){
+      as->layer->posNext.axes[0] = 10;
+      as->layer->posNext.axes[1] = 10;
+    } 
+  }
+}
 /* initial value of {0,0} will be overwritten */
 MovLayer ml0 = { &layer0, {1,0}, 0 };  // Player
 

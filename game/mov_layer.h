@@ -15,4 +15,4 @@ void mlPlayerAdvanceLeft(MovLayer *ml, Region *fence);
 void mlPlayerAdvanceRight(MovLayer *ml, Region *fence);   
 void mlAsteroidAdvance(MovLayer *ml); 
 char collisionDetection(MovLayer *asteroids, MovLayer *player);
-void respawn(MovLayer *as);  
+//void respawn(MovLayer *as);  
