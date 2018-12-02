@@ -6,14 +6,13 @@
 #include <shape.h>
 #include <abCircle.h>
 
+#include "game_sm.h"
 #include "mov_layer.h"
 #include "buzzer.h"
  
 
 #define SIZE 8
-#define GREEN_LED BIT6
-
-char game_running; 
+#define GREEN_LED BIT6 
 
 AbRect rect10 = {abRectGetBounds, abRectCheck, {SIZE, SIZE/2}};
 
@@ -110,11 +109,10 @@ void main()
   P1DIR |= GREEN_LED;		/**< Green led on when CPU on */		
   P1OUT |= GREEN_LED;
 
-  game_running = 1; 
-
   configureClocks();
   lcd_init();
   //buzzer_init(); 
+  game_init(); 
   shapeInit();
   p2sw_init(15);
 
@@ -158,23 +156,24 @@ void main()
 /** Watchdog timer interrupt handler. 15 interrupts/sec */
 void wdt_c_handler()
 {
-  static short count = 0;
-  P1OUT |= GREEN_LED;		      /**< Green LED on when cpu on */
-  u_int switches = p2sw_read();
+  if (game_running){
+    static short count = 0;
+    P1OUT |= GREEN_LED;		      /**< Green LED on when cpu on */
+    u_int switches = p2sw_read();
 
-  if((switches & (1<<0)) == 0){
+    if((switches & (1<<0)) == 0){
       mlPlayerAdvanceLeft(&ml0, &fieldFence);
       // buzzer_advance_frequency(); 
       redrawScreen = 1;  
     }
 
-  if((switches & (1<<3)) == 0){
+    if((switches & (1<<3)) == 0){
       mlPlayerAdvanceRight(&ml0, &fieldFence);
       //buzzer_advance_frequency();
       redrawScreen = 1;  
-  } 
+    } 
 
-  if (count == 15){
+    if (count == 15){
       mlAsteroidAdvance(&as);
       mlAsteroidAdvance(&as1);
       mlAsteroidAdvance(&as2);
@@ -186,14 +185,22 @@ void wdt_c_handler()
       collisionDetection(&as2, &ml0) ||
       collisionDetection(&as3, &ml0) ||
       collisionDetection(&as4, &ml0);
-      if (end){
-        drawString5x7(20,20, "You Lost", COLOR_GREEN, COLOR_BLUE);
-      }
+      game_state_update(end); 
       if(p2sw_read()){
-	redrawScreen = 1; 
+        redrawScreen = 1; 
       }
       count = 0; // reset counter 
+    }
+    count++;
+    P1OUT &= ~GREEN_LED;
+  }		 
+  if (game_end) {
+    drawString5x7(20,20,"YOU LOST",COLOR_GREEN,bgColor);
+    drawString5x7(20,40,"Press button 1 to play again",COLOR_GREEN,bgColor);
+    u_int switches = p2sw_read();
+    if((switches & (1<<0)) == 0){
+      game_state_update(1); 
+      redrawScreen = 1;  
+    }
   }
-  count++;
-  P1OUT &= ~GREEN_LED;		    /**< Green LED off when cpu off */
 }
