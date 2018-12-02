@@ -145,11 +145,11 @@ void main()
       movLayerDraw(&as2, &asteroid4);
       movLayerDraw(&as3, &asteroid5);
       movLayerDraw(&as4, &asteroid6);
-      //respawn(&as); 
-      //respawn(&as1);
-      //respawn(&as2);
-      //respawn(&as3);
-      // respawn(&as4);
+      respawn(&as); 
+      respawn(&as1);
+      respawn(&as2);
+      respawn(&as3);
+      respawn(&as4);
   }
 }
 
