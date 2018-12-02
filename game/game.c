@@ -211,19 +211,17 @@ void wdt_c_handler()
       if (end){
         drawString5x7(20,20, "You Lost", COLOR_GREEN, COLOR_BLUE);
       }
-      else{
-        respawnCheck(&as);
-        respawnCheck(&as1);
-        respawnCheck(&as2);
-        respawnCheck(&as3);
-        respawnCheck(&as4);
-        respawnCheck(&as5);
-        respawnCheck(&as6);
-      }
       
       if (p2sw_read())
         redrawScreen = 1;
       count = 0;
   }
+  respawnCheck(&as);
+  respawnCheck(&as1);
+  respawnCheck(&as2);
+  respawnCheck(&as3);
+  respawnCheck(&as4);
+  respawnCheck(&as5);
+  respawnCheck(&as6);
   P1OUT &= ~GREEN_LED;		    /**< Green LED off when cpu off */
 }
