@@ -7,7 +7,7 @@
 #include <abCircle.h>
 
 #include "mov_layer.h"
-#include "switches_handler.c" 
+ 
 
 #define SIZE 8
 #define GREEN_LED BIT6
@@ -177,7 +177,15 @@ void wdt_c_handler()
   count ++;
   u_int switches = p2sw_read();
 
-  redrawScreen = switches_handler(&ml0, &fieldFence, switches); 
+  if((switches & (1<<0)) == 0){
+      mlPlayerAdvanceLeft(ml0, fieldFence);
+      redrawScreen = 1;  
+    }
+
+  if((switches & (1<<3)) == 0){
+      mlPlayerAdvanceRight(ml0, fieldFence);
+      redrawScreen = 1;  
+  }
 
   if (count == 15) {
       if (p2sw_read())
