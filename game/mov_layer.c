@@ -74,15 +74,16 @@ void mlPlayerAdvanceRight(MovLayer *ml, Region *fence)
   } 
 }
 
-void mlAsteroidAdvance(MovLayer *ml, Region *fence)
+void mlAsteroidAdvance(MovLayer *ml)
 {
   Vec2 newPos;
   u_char axis;
   Region shapeBoundary;
   for (; ml; ml = ml->next){
-    vec2Sub(&newPos, &ml->layer->posNext, &ml->velocity);
-    abShapeGetBounds(ml->layer->abShape, &newPos, &shapeBoundary);
-     ml->layer->posNext = newPos;
+    vec2Add(&newPos, &ml->layer->posNext, &ml->velocity);
+    int velocity = ml->velocity.axes[1];
+    newPos.axes[1] += velocity; 
+    ml->layer->posNext = newPos;
   } 
 }
 
@@ -105,14 +106,14 @@ char collisionDetection(MovLayer *asteroids, MovLayer *player)
   return collision; 
 }
 
-void respawn(MovLayer *as)
-{ 
-  Region asRe;
-  for (; as; as = as->next){
-    abShapeGetBounds(as->layer->abShape,&as->layer->pos,&asRe);
-    if (asRe.topLeft.axes[1]>=screenHeight){
-      as->layer->posNext.axes[0] = (rand()*((screenWidth-8)-8)+8);
-      as->layer->posNext.axes[1] = 0;
-    } 
-  }
-}
+//void respawn(MovLayer *as)
+//{ 
+  //Region asRe;
+  //for (; as; as = as->next){
+    //abShapeGetBounds(as->layer->abShape,&as->layer->pos,&asRe);
+    //if (asRe.topLeft.axes[1]>=screenHeight){
+      //as->layer->posNext.axes[0] = (rand()*((screenWidth-8)-8)+8);
+      //as->layer->posNext.axes[1] = 0;
+      //} 
+    //}
+  //}
