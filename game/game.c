@@ -38,21 +38,6 @@ Layer layer0 = {		/**< Layer with a red square */
 };
 
 // Asteroids
-Layer asteroid8 = {
-  (AbShape *) &circle6,
-  {SIZE, SIZE},/**< center */
-  {0,0}, {0,0},				    /* last & next pos */
-  COLOR_BLACK,
-  0
-};
-
-Layer asteroid7 = {
-  (AbShape *) &circle6,
-  {SIZE+SIZE+1, SIZE},/**< center */
-  {0,0}, {0,0},				    /* last & next pos */
-  COLOR_BLACK,
-  0,
-};
 
 Layer asteroid6 = {
   (AbShape *) &circle6,
@@ -102,8 +87,6 @@ MovLayer as1 = {&asteroid3, {0,-2}, 0};
 MovLayer as2 = {&asteroid4, {0,-2}, 0};
 MovLayer as3 = {&asteroid5, {0,-2}, 0};
 MovLayer as4 = {&asteroid6, {0,-2}, 0};
-MovLayer as5 = {&asteroid7, {0,-2}, 0};
-MovLayer as6 = {&asteroid8, {0,-2}, 0};
 
 Region fieldFence;
 
@@ -129,8 +112,6 @@ void main()
   layerInit(&asteroid4);
   layerInit(&asteroid5);
   layerInit(&asteroid6);
-  layerInit(&asteroid7);
-  layerInit(&asteroid8);
 
   layerDraw(&layer0);
   layerDraw(&asteroid2);
@@ -138,13 +119,6 @@ void main()
   layerDraw(&asteroid4);
   layerDraw(&asteroid5);
   layerDraw(&asteroid6);
-  layerDraw(&asteroid7);
-  layerDraw(&asteroid8);
-  
-  //layerInit((as.layer));
-  // layerDraw((as.layer)); 
-  // layerInit(&layer1);
-  // layerDraw(&layer1);
 
   layerGetBounds(&fieldLayer, &fieldFence);
 
@@ -164,8 +138,6 @@ void main()
       movLayerDraw(&as2, &asteroid4);
       movLayerDraw(&as3, &asteroid5);
       movLayerDraw(&as4, &asteroid6);
-      movLayerDraw(&as5, &asteroid7);
-      movLayerDraw(&as6, &asteroid8); 
   }
 }
 
@@ -178,12 +150,12 @@ void wdt_c_handler()
   u_int switches = p2sw_read();
 
   if((switches & (1<<0)) == 0){
-      mlPlayerAdvanceLeft(ml0, fieldFence);
+      mlPlayerAdvanceLeft(&ml0, &fieldFence);
       redrawScreen = 1;  
     }
 
   if((switches & (1<<3)) == 0){
-      mlPlayerAdvanceRight(ml0, fieldFence);
+      mlPlayerAdvanceRight(&ml0, &fieldFence);
       redrawScreen = 1;  
   }
 
@@ -198,16 +170,12 @@ void wdt_c_handler()
       mlAsteroidAdvance(&as2, &fieldFence);
       mlAsteroidAdvance(&as3, &fieldFence);
       mlAsteroidAdvance(&as4, &fieldFence);
-      mlAsteroidAdvance(&as5, &fieldFence);
-      mlAsteroidAdvance(&as6, &fieldFence);
       
       char end = collisionDetection(&as, &ml0) ||
       collisionDetection(&as1, &ml0) || 
       collisionDetection(&as2, &ml0) ||
       collisionDetection(&as3, &ml0) ||
-      collisionDetection(&as4, &ml0) ||
-      collisionDetection(&as5, &ml0) ||
-      collisionDetection(&as6, &ml0);
+	collisionDetection(&as4, &ml0);
       if (end){
         drawString5x7(20,20, "You Lost", COLOR_GREEN, COLOR_BLUE);
       }
@@ -216,12 +184,5 @@ void wdt_c_handler()
         redrawScreen = 1;
       count = 0;
   }
-  // respawnCheck(&as);
-  // respawnCheck(&as1);
-  // respawnCheck(&as2);
-  // respawnCheck(&as3);
-  // respawnCheck(&as4);
-  // respawnCheck(&as5);
-  // respawnCheck(&as6);
   P1OUT &= ~GREEN_LED;		    /**< Green LED off when cpu off */
 }
