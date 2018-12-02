@@ -208,9 +208,19 @@ void wdt_c_handler()
       collisionDetection(&as4, &ml0) ||
       collisionDetection(&as5, &ml0) ||
       collisionDetection(&as6, &ml0);
-      respawnCheck(&as);
-      if (end)
+      if (end){
         drawString5x7(20,20, "You Lost", COLOR_GREEN, COLOR_BLUE);
+      }
+      else{
+        respawnCheck(&as);
+        respawnCheck(&as1);
+        respawnCheck(&as2);
+        respawnCheck(&as3);
+        respawnCheck(&as4);
+        respawnCheck(&as5);
+        respawnCheck(&as6);
+      }
+      
       if (p2sw_read())
         redrawScreen = 1;
       count = 0;
