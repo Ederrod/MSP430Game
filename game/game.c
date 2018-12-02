@@ -86,7 +86,7 @@ void respawn(MovLayer *as)
   for (; as; as = as->next){
     abShapeGetBounds(as->layer->abShape,&as->layer->pos,&asRe);
     if (asRe.topLeft.axes[1]>=screenHeight){
-      as->layer->posNext.axes[0] = (as->layer->pos.axes[0]+10 >= screenWidth) 0 : as->layer->pos.axes[0]+10;
+      as->layer->posNext.axes[0] = (as->layer->pos.axes[0]+10 >= screenWidth)? 0 : as->layer->pos.axes[0]+10;
       as->layer->posNext.axes[1] = 0;
     } 
   }
