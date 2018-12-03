@@ -25,5 +25,5 @@ game_state_update:
     mov.b #0, &game_end
 .re:
     ret
-    size game_state_update, -game_state_update
-    .ident	"GCC: (GNU) 4.9.1 20140707 (prerelease (msp430-14r1-364)) (GNUPro 14r1) (Based on: GCC 4.8 GDB 7.7 Binutils 2.24 Newlib 2.1)"
+    .size game_state_update, .-game_state_update
+    
