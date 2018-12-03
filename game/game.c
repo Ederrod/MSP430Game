@@ -79,9 +79,6 @@ Layer asteroid2 = {
   &asteroid3
 };
 
-void reset(){
-  
-}
 
 void respawn(MovLayer *as)
 { 
@@ -205,8 +202,11 @@ void wdt_c_handler()
     drawString5x7(20,60, "shortly",COLOR_GREEN,bgColor);
     
     if (counter == 180){
-      reset(&as);
-      reset(); 
+      respawn(&as);
+      respawn(&as1);
+      respawn(&as2);
+      respawn(&as3);
+      respawn(&as4);
       game_state_update(1);
       counter= 0; 
     }
