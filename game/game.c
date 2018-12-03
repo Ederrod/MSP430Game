@@ -79,6 +79,9 @@ Layer asteroid2 = {
   &asteroid3
 };
 
+void reset(){
+  
+}
 
 void respawn(MovLayer *as)
 { 
@@ -91,6 +94,7 @@ void respawn(MovLayer *as)
     } 
   }
 }
+
 /* initial value of {0,0} will be overwritten */
 MovLayer ml0 = { &layer0, {1,0}, 0 };  // Player
 
@@ -195,12 +199,17 @@ void wdt_c_handler()
     P1OUT &= ~GREEN_LED;
   }		 
   if (game_end) {
+    static short counter = 0; 
     drawString5x7(20,20,"YOU LOST",COLOR_GREEN,bgColor);
-    drawString5x7(20,40,"Press button 1 to play again",COLOR_GREEN,bgColor);
-    u_int switches = p2sw_read();
-    if((switches & (1<<0)) == 0){
-      game_state_update(1); 
-      redrawScreen = 1;  
+    drawString5x7(20,40,"Game will start in",COLOR_GREEN,bgColor);
+    drawString5x7(20,60, "shortly",COLOR_GREEN,bgColor);
+    
+    if (counter == 180){
+      reset(&as);
+      reset(); 
+      game_state_update(1);
+      counter= 0; 
     }
+    counter++; 
   }
 }

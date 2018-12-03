@@ -1,3 +1,5 @@
+#include "game_sm.h"
+
 char game_running, game_end; 
 
 void game_init()
